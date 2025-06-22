@@ -1,0 +1,45 @@
+
+Authentication (JWT)
+--------------------
+- POST /api/token/        : Login, returns access & refresh tokens
+- POST /api/token/refresh/: Get new access token
+- POST /api/token/logout/ : Logout (blacklists refresh token)
+
+Note: Auth is required for all APIs.
+Header format: Authorization: Bearer <access_token>
+
+Blog API Endpoints
+------------------
+- GET    /api/blogs/             : List all blogs (paginated)
+- GET    /api/blogs/<id>/        : Get blog details
+- POST   /api/blogs/create/      : Create a blog (auto-assigns logged-in user)
+- PUT    /api/blogs/<id>/edit/   : Update a blog (only author can edit)
+- DELETE /api/blogs/<id>/delete/ : Delete a blog (only author can delete)
+
+Category API (via ViewSet & Router)
+-----------------------------------
+- GET    /api/categories/         : List all categories
+- POST   /api/categories/         : Create a new category
+- GET    /api/categories/<id>/    : Get a category by ID
+- PUT    /api/categories/<id>/    : Update a category
+- DELETE /api/categories/<id>/    : Delete a category
+
+Testing Flow (e.g., Postman)
+----------------------------
+1. POST /api/token/
+   - Login with credentials:
+     username: anandu@123
+     password: abc@12345
+
+2. Use access token in headers:
+   Authorization: Bearer <access_token>
+
+3. Try the following in order:
+   - Create a category
+   - Create a blog
+   - List blogs
+   - View blog details
+   - Edit your blog
+   - Delete your blog
+
+4. Logout by POSTing to /api/token/logout/
